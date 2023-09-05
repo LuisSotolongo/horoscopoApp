@@ -5,8 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.horoscopoapp.R
-import com.example.horoscopoapp.databinding.FragmentLuckBinding
 import com.example.horoscopoapp.databinding.FragmentPalmistryBinding
 
 class PalmistryFragment : Fragment() {
