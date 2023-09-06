@@ -12,13 +12,13 @@ class HoroscopeProvider @Inject constructor() {
             Aries,
             Taurus,
             Gemini,
-            Escorpio,
+            Cancer,
             Leo,
+            Virgo,
             Libra,
+            Escorpio,
             Sagitario,
             Capricornio,
-            Piscis,
-            Cancer,
             Aquarius,
             Virgo
         )
