@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.horoscopoapp.databinding.FragmentHoroscopeBinding
 import com.example.horoscopoapp.ui.horoscope.adapter.HoroscopeAdapter
@@ -46,7 +47,7 @@ class HoroscopeFragment : Fragment() {
     private fun initList() {
         horoscopeAdapter = HoroscopeAdapter()
         binding.rvHoroscope.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = horoscopeAdapter
         }
 

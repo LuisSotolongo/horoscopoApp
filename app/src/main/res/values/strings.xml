@@ -19,4 +19,6 @@
     <string name="sagitario">Sagitario</string>
     <string name="piscis">Piscis</string>
     <string name="escorpio">Escorpio</string>
+    <string name="aquarius">Aquarius</string>
+    <string name="virgo">Virgo</string>
 </resources>
