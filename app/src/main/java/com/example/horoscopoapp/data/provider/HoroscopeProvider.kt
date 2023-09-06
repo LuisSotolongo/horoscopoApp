@@ -20,7 +20,7 @@ class HoroscopeProvider @Inject constructor() {
             Sagitario,
             Capricornio,
             Aquarius,
-            Virgo
+            Piscis
         )
 
     }
