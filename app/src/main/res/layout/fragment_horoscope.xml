@@ -6,6 +6,9 @@
     tools:context=".ui.horoscope.HoroscopeFragment"
     android:background="@color/primary">
 
-
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/horoscopeRecycler"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
 </FrameLayout>
