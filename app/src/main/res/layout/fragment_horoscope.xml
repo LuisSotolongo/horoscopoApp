@@ -7,7 +7,7 @@
     android:background="@color/primary">
 
 <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/horoscopeRecycler"
+    android:id="@+id/rvHoroscope"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
 

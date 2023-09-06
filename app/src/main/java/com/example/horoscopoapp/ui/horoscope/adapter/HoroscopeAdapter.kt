@@ -3,21 +3,27 @@ package com.example.horoscopoapp.ui.horoscope.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.horoscopoapp.R
 import com.example.horoscopoapp.domain.model.HoroscopeInfo
 
-class HoroscopeAdapter(private var horoscopeList: List<HoroscopeInfo> = emptyList()): RecyclerView.Adapter<HoroscopeViewHolder>(){
+class HoroscopeAdapter(private var horoscopeList: List<HoroscopeInfo> = emptyList()) :
+    RecyclerView.Adapter<HoroscopeViewHolder>() {
 
+    fun updateList(list:List<HoroscopeInfo>){
+        horoscopeList = list
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
         return HoroscopeViewHolder(
-            LayoutInflater.from(parent.context)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_horoscope, parent, false)
         )
     }
 
     override fun getItemCount() = horoscopeList.size
 
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.render(horoscopeList[position])
     }
 
 }
