@@ -38,7 +38,7 @@
         tools:text="suscribete" />
 
     <TextView
-        android:id="@+id/Body"
+        android:id="@+id/tvBody"
         style="@style/Body"
         android:layout_width="0dp"
         android:layout_height="0dp"

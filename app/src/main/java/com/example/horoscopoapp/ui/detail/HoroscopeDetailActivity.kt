@@ -23,6 +23,7 @@ class HoroscopeDetailActivity : AppCompatActivity() {
         binding = ActivityHoroscopeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         iniUi()
+        horoscopeDetailViewModel.getHoroscope(args.type.name)
     }
 
     private fun iniUi() {
@@ -35,7 +36,7 @@ class HoroscopeDetailActivity : AppCompatActivity() {
                 horoscopeDetailViewModel.state.collect{
                     when(it){
                         is HoroscopeDetailState.Error -> errorState()
-                        is HoroscopeDetailState.Success -> successState()
+                        is HoroscopeDetailState.Success -> successState(it)
                         HoroscopeDetailState.loading ->  loadingState()
                     }
                 }
@@ -48,9 +49,11 @@ class HoroscopeDetailActivity : AppCompatActivity() {
     }
 
     private fun errorState(){
-
+        binding.pbProgress.isVisible = false
     }
-    private fun successState(){
-
+    private fun successState(state: HoroscopeDetailState.Success){
+        binding.pbProgress.isVisible = false
+        binding.tvTitle.text = state.sign
+        binding.tvBody.text = state.prediction
     }
 }
