@@ -15,6 +15,7 @@ import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import com.example.horoscopoapp.R
 import com.example.horoscopoapp.databinding.FragmentLuckBinding
+import com.example.horoscopoapp.ui.core.listeners.OnSwipeTouchListener
 import com.example.horoscopoapp.ui.providers.RandomCardProvider
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -47,7 +48,7 @@ class LuckFragment : Fragment() {
     }
 
     private fun preparedPrediction() {
-       val currentLuck = randomCardProvider.getLucky()
+        val currentLuck = randomCardProvider.getLucky()
         currentLuck?.let { luck ->
             val currentPrediction = getString(luck.text)
             binding.tvLucky.text = currentPrediction
@@ -57,11 +58,11 @@ class LuckFragment : Fragment() {
     }
 
     private fun shareResult(prediction: String) {
-         val setintent: Intent = Intent().apply {
-             action = Intent.ACTION_SEND
-             putExtra(Intent.EXTRA_TEXT, prediction)
-             type = "text/plain"
-         }
+        val setintent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, prediction)
+            type = "text/plain"
+        }
 
         val shareIntent = Intent.createChooser(setintent, null)
         startActivity(shareIntent)
@@ -69,7 +70,17 @@ class LuckFragment : Fragment() {
 
     private fun initListeners() {
         binding.ivRoulette.setOnClickListener {
-            spinRoulette()
+
+            binding.ivRoulette.setOnTouchListener(object : OnSwipeTouchListener(requireContext()) {
+                override fun onSwipeRight() {
+                    spinRoulette()
+                }
+
+                override fun onSwipeLeft() {
+                    spinRoulette()
+                }
+            })
+
         }
     }
 
