@@ -1,7 +1,7 @@
 package com.example.horoscopoapp.ui.luck
 
 import android.animation.ObjectAnimator
-import android.graphics.drawable.Animatable2.AnimationCallback
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,20 +9,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
 import android.view.animation.AnimationUtils
 import android.view.animation.DecelerateInterpolator
 import androidx.core.animation.doOnEnd
 import androidx.core.view.isVisible
 import com.example.horoscopoapp.R
 import com.example.horoscopoapp.databinding.FragmentLuckBinding
+import com.example.horoscopoapp.ui.providers.RandomCardProvider
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LuckFragment : Fragment() {
     private var _binding: FragmentLuckBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var randomCardProvider: RandomCardProvider
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,7 +42,29 @@ class LuckFragment : Fragment() {
     }
 
     private fun initUi() {
+        preparedPrediction()
         initListeners()
+    }
+
+    private fun preparedPrediction() {
+       val currentLuck = randomCardProvider.getLucky()
+        currentLuck?.let { luck ->
+            val currentPrediction = getString(luck.text)
+            binding.tvLucky.text = currentPrediction
+            binding.ivLuckyCard.setImageResource(luck.img)
+            binding.tvShare.setOnClickListener { shareResult(currentPrediction) }
+        }
+    }
+
+    private fun shareResult(prediction: String) {
+         val setintent: Intent = Intent().apply {
+             action = Intent.ACTION_SEND
+             putExtra(Intent.EXTRA_TEXT, prediction)
+             type = "text/plain"
+         }
+
+        val shareIntent = Intent.createChooser(setintent, null)
+        startActivity(shareIntent)
     }
 
     private fun initListeners() {
@@ -79,13 +105,13 @@ class LuckFragment : Fragment() {
 
     private fun growCard() {
         val growAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.grow)
-        growAnimation.setAnimationListener(object : Animation.AnimationListener{
+        growAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {
 
             }
 
             override fun onAnimationEnd(p0: Animation?) {
-               binding.reverse.isVisible = false
+                binding.reverse.isVisible = false
                 showPremonitionView()
             }
 
@@ -102,7 +128,10 @@ class LuckFragment : Fragment() {
         val disappearAnimation = AlphaAnimation(1.0f, 0.0f)
         disappearAnimation.duration = 300
 
-        disappearAnimation.setAnimationListener(object : Animation.AnimationListener{
+        val appearAnimation = AlphaAnimation(0.0f, 1.0f)
+        appearAnimation.duration = 1000
+
+        disappearAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) {
 
             }
@@ -119,5 +148,6 @@ class LuckFragment : Fragment() {
         })
 
         binding.preview.startAnimation(disappearAnimation)
+        binding.prediction.startAnimation(appearAnimation)
     }
 }
