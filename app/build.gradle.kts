@@ -78,4 +78,17 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6")
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
+
+    //Camera X
+    val camerax_version = "1.3.0-alpha04"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    // If you want to additionally use the CameraX View class
+    implementation("androidx.camera:camera-view:${camerax_version}")
+    // If you want to additionally use the CameraX Extensions library
+    implementation("androidx.camera:camera-extensions:${camerax_version}")
+
 }
