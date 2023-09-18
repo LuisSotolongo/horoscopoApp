@@ -21,12 +21,19 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "BASE_URL", "\"https://newastro.vercel.app/\"")
+        }
+        getByName("debug") {
+            isDebuggable = true
+            buildConfigField("String", "BASE_URL", "\"https://newastro-debug.vercel.app/\"")
         }
     }
     compileOptions {
@@ -39,9 +46,10 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
-    kotlin{
-         jvmToolchain(8)
+    kotlin {
+        jvmToolchain(8)
     }
 }
 
@@ -66,8 +74,8 @@ dependencies {
     kapt("com.google.dagger:hilt-compiler:2.48")
 
     //Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     //implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.6")
     implementation("com.squareup.okhttp3:logging-interceptor:4.3.1")
 }
